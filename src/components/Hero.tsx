@@ -45,7 +45,7 @@ const Hero = () => {
             </Link>
             <Link 
               href="#features"
-              className="px-8 py-4 rounded-2xl bg-white text-foreground font-bold text-lg text-center soft-shadow hover:bg-secondary/50 active:scale-95 transition-all w-full sm:w-auto"
+              className="px-8 py-4 rounded-2xl bg-card text-foreground font-bold text-lg text-center soft-shadow border border-border hover:bg-secondary active:scale-95 transition-all w-full sm:w-auto duration-300"
             >
               Lihat Fitur
             </Link>
@@ -59,7 +59,7 @@ const Hero = () => {
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
           className="relative px-4 sm:px-0"
         >
-          <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden soft-shadow border-4 md:border-8 border-white max-w-[500px] mx-auto lg:max-w-none">
+          <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden soft-shadow border-4 md:border-8 border-card max-w-[500px] mx-auto lg:max-w-none transition-colors duration-300">
             <Image
               src="/hero-illustration.png"
               alt="Islamic Illustration"

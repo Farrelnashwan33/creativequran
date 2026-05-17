@@ -166,7 +166,7 @@ function SurahDetailPageContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#F5F7F6]">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background transition-colors duration-300">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -179,8 +179,8 @@ function SurahDetailPageContent() {
 
   if (error || !surah) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F5F7F6]">
-        <div className="text-center bg-white p-12 rounded-[32px] soft-shadow max-w-md">
+      <div className="min-h-screen flex items-center justify-center bg-background transition-colors duration-300">
+        <div className="text-center bg-card p-12 rounded-[32px] soft-shadow max-w-md border border-border transition-colors duration-300">
           <div className="text-6xl mb-4">📖</div>
           <h1 className="text-2xl font-bold mb-2 text-foreground">Surah Tidak Ditemukan</h1>
           <p className="text-foreground/50 mb-6">Gagal memuat data. Cek koneksi internet kamu.</p>
@@ -196,9 +196,9 @@ function SurahDetailPageContent() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F5F7F6] pb-20">
+    <main className="min-h-screen bg-background pb-20 transition-colors duration-300">
       {/* Sticky Header */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl z-50 border-b border-secondary px-4 md:px-6 py-4">
+      <nav className="fixed top-0 left-0 right-0 bg-card/80 backdrop-blur-xl z-50 border-b border-border px-4 md:px-6 py-4 transition-colors duration-300">
         <div className="container mx-auto flex items-center justify-between gap-4">
           <Link
             href="/mushaf"
@@ -294,7 +294,7 @@ function SurahDetailPageContent() {
               transition={{ duration: 0.4 }}
               className="relative group"
             >
-              <div className="bg-white rounded-[32px] p-6 md:p-10 soft-shadow border border-secondary/50 group-hover:border-primary/20 transition-all duration-500">
+              <div className="bg-card rounded-[32px] p-6 md:p-10 soft-shadow border border-border group-hover:border-primary/40 transition-all duration-300">
                 {/* Verse Number & Controls */}
                 <div className="flex items-center justify-between mb-6 md:mb-8">
                   <div className="flex items-center gap-3">
@@ -394,7 +394,7 @@ function SurahDetailPageContent() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="space-y-4 pt-6 border-t border-secondary/30">
+                      <div className="space-y-4 pt-6 border-t border-border/80">
                         <div>
                           <p className="text-[10px] font-bold text-primary/30 uppercase tracking-[0.2em] mb-2">
                             Latin
@@ -428,7 +428,7 @@ function SurahDetailPageContent() {
           {surah.nomor > 1 ? (
             <Link
               href={`/mushaf/${surah.nomor - 1}`}
-              className="flex-1 bg-white p-5 md:p-6 rounded-[28px] soft-shadow border border-secondary flex items-center gap-4 hover:border-primary/30 transition-all group"
+              className="flex-1 bg-card p-5 md:p-6 rounded-[28px] soft-shadow border border-border flex items-center gap-4 hover:border-primary/30 transition-all group duration-300"
             >
               <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
                 <ChevronLeft size={22} />
@@ -449,7 +449,7 @@ function SurahDetailPageContent() {
           {surah.nomor < 114 ? (
             <Link
               href={`/mushaf/${surah.nomor + 1}`}
-              className="flex-1 bg-white p-5 md:p-6 rounded-[28px] soft-shadow border border-secondary flex items-center justify-between gap-4 hover:border-primary/30 transition-all group text-right"
+              className="flex-1 bg-card p-5 md:p-6 rounded-[28px] soft-shadow border border-border flex items-center justify-between gap-4 hover:border-primary/30 transition-all group text-right duration-300"
             >
               <div className="min-w-0">
                 <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">
@@ -517,9 +517,9 @@ function SurahDetailPageContent() {
 export default function SurahDetailPage() {
   return (
     <React.Suspense fallback={
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#F5F7F6]">
-        <div className="w-16 h-16 border-4 border-[#0FAF9A] border-t-transparent rounded-full mb-4 animate-spin" />
-        <p className="font-bold text-[#0FAF9A] animate-pulse">Memuat Surah...</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background transition-colors duration-300">
+        <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full mb-4 animate-spin" />
+        <p className="font-bold text-primary animate-pulse">Memuat Surah...</p>
       </div>
     }>
       <SurahDetailPageContent />

@@ -132,7 +132,7 @@ export default function MushafPage() {
   );
 
   return (
-    <main className="min-h-screen bg-[#F5F7F6] pb-20">
+    <main className="min-h-screen bg-background pb-20 transition-colors duration-300">
       {/* Header */}
       <div className="primary-gradient pt-20 pb-32 px-6 relative">
         <div className="container mx-auto">
@@ -156,8 +156,8 @@ export default function MushafPage() {
 
       <div className="container mx-auto px-6 -mt-12">
         {/* Search and Filter Section */}
-        <div className="bg-white/70 backdrop-blur-xl p-5 md:p-6 rounded-[32px] soft-shadow border border-white flex flex-col lg:flex-row gap-6 mb-12">
-          <div className="flex-1 flex items-center gap-4 bg-[#F0F4F2] px-6 py-4 rounded-2xl border border-secondary/50 focus-within:border-primary/30 transition-all">
+        <div className="bg-card/70 backdrop-blur-xl p-5 md:p-6 rounded-[32px] soft-shadow border border-border flex flex-col lg:flex-row gap-6 mb-12 transition-colors duration-300">
+          <div className="flex-1 flex items-center gap-4 bg-secondary px-6 py-4 rounded-2xl border border-border focus-within:border-primary/30 transition-all">
             <Search size={22} className="text-primary/40" />
             <input 
               type="text" 
@@ -167,15 +167,15 @@ export default function MushafPage() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <div className="flex p-1.5 bg-[#F0F4F2] rounded-2xl border border-secondary/50">
+          <div className="flex p-1.5 bg-secondary rounded-2xl border border-border transition-colors">
             {["Semua", "Makkiyah", "Madaniyah"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab.toLowerCase())}
                 className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${
                   activeTab === tab.toLowerCase() 
-                  ? "bg-white text-primary soft-shadow" 
-                  : "text-foreground/40 hover:text-foreground/60"
+                  ? "bg-card text-primary soft-shadow font-extrabold" 
+                  : "text-foreground/50 hover:text-foreground/80 font-semibold"
                 }`}
               >
                 {tab}
@@ -192,7 +192,7 @@ export default function MushafPage() {
                 whileHover={{ y: -5, scale: 1.01 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white p-5 md:p-6 rounded-[30px] soft-shadow border border-secondary/50 flex flex-col justify-between group cursor-pointer hover:border-primary/40 hover:bg-primary/[0.02] transition-all h-full relative overflow-hidden"
+                className="bg-card p-5 md:p-6 rounded-[30px] soft-shadow border border-border flex flex-col justify-between group cursor-pointer hover:border-primary/40 hover:bg-primary/[0.02] transition-all h-full relative overflow-hidden duration-300"
               >
                 {/* Decorative background element */}
                 <div className="absolute -top-4 -right-4 w-16 h-16 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
@@ -209,16 +209,16 @@ export default function MushafPage() {
                     </div>
                     <div>
                       <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">{surah.name}</h3>
-                      <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">{surah.city}</p>
+                      <p className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest">{surah.city}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-arabic text-foreground/80 group-hover:text-primary transition-colors">{surah.arabic}</p>
+                    <p className="text-2xl font-arabic text-foreground/90 group-hover:text-primary transition-colors">{surah.arabic}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-secondary/50">
-                  <span className="text-xs font-bold text-foreground/30 group-hover:text-primary transition-colors">{surah.verses} Ayat</span>
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/80">
+                  <span className="text-xs font-bold text-foreground/40 group-hover:text-primary transition-colors">{surah.verses} Ayat</span>
                   <div className="flex items-center gap-1.5 text-[10px] font-bold text-primary opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
                     MULAI BACA <ChevronRight size={14} />
                   </div>

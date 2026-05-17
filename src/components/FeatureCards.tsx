@@ -36,7 +36,7 @@ const features = [
 
 const FeatureCards = () => {
   return (
-    <section id="features" className="py-12 md:py-20 bg-white/50">
+    <section id="features" className="py-12 md:py-20 bg-background/50 transition-colors duration-300">
       <div className="container mx-auto px-6">
         <div className="flex flex-col gap-6 md:gap-8">
           {features.map((feature, index) => (

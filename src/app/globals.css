@@ -7,7 +7,20 @@
   --primary-dark: #0C8F7C;
   --secondary: #E9F2F0;
   --accent: #FF9F1C;
+  --card: #FFFFFF;
+  --border: #E9F2F0;
   --card-radius: 24px;
+}
+
+:root[data-theme="dark"], .dark {
+  --background: #0B1513;
+  --foreground: #F0F6F5;
+  --primary: #0FAF9A;
+  --primary-dark: #12C9B1;
+  --secondary: #162623;
+  --accent: #FF9F1C;
+  --card: #11201D;
+  --border: #1B322E;
 }
 
 @theme inline {
@@ -17,6 +30,8 @@
   --color-primary-dark: var(--primary-dark);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-border: var(--border);
   
   --radius-3xl: var(--card-radius);
   
@@ -31,6 +46,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .primary-gradient {
@@ -41,6 +57,33 @@ body {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+:root[data-theme="dark"] .glass, .dark .glass {
+  background: rgba(17, 32, 29, 0.75);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Specific background styles for article and grid cards in dark mode */
+:root[data-theme="dark"] .bg-orange-50, .dark .bg-orange-50 {
+  background-color: rgba(255, 159, 28, 0.15) !important;
+  border-color: rgba(255, 159, 28, 0.3);
+}
+:root[data-theme="dark"] .bg-blue-50, .dark .bg-blue-50 {
+  background-color: rgba(58, 134, 255, 0.15) !important;
+  border-color: rgba(58, 134, 255, 0.3);
+}
+:root[data-theme="dark"] .bg-green-50, .dark .bg-green-50 {
+  background-color: rgba(15, 175, 154, 0.15) !important;
+  border-color: rgba(15, 175, 154, 0.3);
+}
+:root[data-theme="dark"] .bg-yellow-50, .dark .bg-yellow-50 {
+  background-color: rgba(255, 200, 44, 0.15) !important;
+  border-color: rgba(255, 200, 44, 0.3);
+}
+:root[data-theme="dark"] .bg-red-50, .dark .bg-red-50 {
+  background-color: rgba(255, 75, 75, 0.15) !important;
+  border-color: rgba(255, 75, 75, 0.3);
 }
 
 .soft-shadow {

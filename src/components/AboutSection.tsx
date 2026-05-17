@@ -24,7 +24,7 @@ const aboutItems = [
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-16 md:py-24 bg-secondary/30 rounded-[32px] md:rounded-[64px] mx-4 md:mx-6 lg:mx-12 my-12 md:my-20">
+    <section id="about" className="py-16 md:py-24 bg-secondary rounded-[32px] md:rounded-[64px] mx-4 md:mx-6 lg:mx-12 my-12 md:my-20 transition-colors duration-300">
       <div className="container mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -35,7 +35,7 @@ const AboutSection = () => {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
             Mengapa Creative Al-Quran?
           </h2>
-          <p className="text-sm md:text-base text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-foreground/70 max-w-2xl mx-auto">
             Kami menghadirkan teknologi untuk memudahkan umat Islam dalam berinteraksi dengan kitab suci setiap hari.
           </p>
         </motion.div>
@@ -52,11 +52,11 @@ const AboutSection = () => {
                 transition={{ delay: index * 0.2 }}
                 className="flex flex-col items-center gap-4 md:gap-6"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-white flex items-center justify-center soft-shadow mb-1 md:mb-2">
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-card flex items-center justify-center soft-shadow mb-1 md:mb-2 border border-border transition-colors">
                   <Icon size={28} className="text-primary md:hidden" />
                   <Icon size={32} className="text-primary hidden md:block" />
                 </div>
-                <h3 className="text-lg md:text-xl font-bold">{item.title}</h3>
+                <h3 className="text-lg md:text-xl font-bold text-foreground">{item.title}</h3>
                 <p className="text-xs md:text-sm text-foreground/60 leading-relaxed max-w-[250px]">
                   {item.description}
                 </p>

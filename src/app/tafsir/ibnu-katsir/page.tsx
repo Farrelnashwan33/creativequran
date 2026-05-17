@@ -139,7 +139,7 @@ export default function IbnuKatsirPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F8FAFB] pb-20">
+    <main className="min-h-screen bg-background pb-20 transition-colors duration-300">
       {/* Header Section */}
       <div className="primary-gradient pt-20 pb-32 px-6 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/islamic-art.png')] pointer-events-none"></div>
@@ -179,8 +179,8 @@ export default function IbnuKatsirPage() {
 
       <div className="container mx-auto px-6 -mt-16 relative z-20">
         {/* Search & Filter Bar */}
-        <div className="bg-white p-4 rounded-[24px] soft-shadow border border-secondary mb-12 flex items-center gap-4">
-          <div className="bg-secondary/50 p-3 rounded-xl text-foreground/40">
+        <div className="bg-card p-4 rounded-[24px] soft-shadow border border-border mb-12 flex items-center gap-4 transition-colors duration-300">
+          <div className="bg-secondary p-3 rounded-xl text-foreground/40">
             <Search size={24} />
           </div>
           <input 
@@ -198,7 +198,7 @@ export default function IbnuKatsirPage() {
             <Link 
               key={surah.id}
               href={`/tafsir/ibnu-katsir/${surah.id}`}
-              className="bg-white p-6 rounded-[28px] soft-shadow border border-secondary hover:border-primary/30 group cursor-pointer transition-all hover:translate-y-[-4px] block"
+              className="bg-card p-6 rounded-[28px] soft-shadow border border-border hover:border-primary/40 group cursor-pointer transition-all hover:translate-y-[-4px] block duration-300"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-primary font-bold text-sm group-hover:bg-primary group-hover:text-white transition-colors">
@@ -216,7 +216,7 @@ export default function IbnuKatsirPage() {
                 <p className="text-xs text-foreground/50">{surah.verses} Ayat</p>
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-secondary">
+              <div className="flex items-center justify-between pt-4 border-t border-border">
                 <span className="text-xs font-bold text-primary">Buka Tafsir</span>
                 <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-foreground/40 group-hover:bg-primary/10 group-hover:text-primary transition-all">
                   <ChevronRight size={18} />

@@ -9,7 +9,7 @@ const gridItems = [
   {
     title: "Salah",
     icon: Sun,
-    iconColor: "text-orange-50",
+    iconColor: "text-orange-500",
     bgColor: "bg-orange-50",
     description: "Panduan shalat fardhu & shalat sunnah",
   },
@@ -58,7 +58,7 @@ const GridFeatures = () => {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className={`p-6 md:p-8 rounded-[24px] md:rounded-[32px] ${item.bgColor} soft-shadow cursor-pointer transition-all border border-transparent hover:border-primary/20 flex flex-col gap-3 md:gap-4 group h-full`}
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white flex items-center justify-center soft-shadow mb-1 md:mb-2 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-card flex items-center justify-center soft-shadow mb-1 md:mb-2 group-hover:scale-110 transition-transform">
                   <item.icon size={24} className={`${item.iconColor} md:hidden`} />
                   <item.icon size={28} className={`${item.iconColor} hidden md:block`} />
                 </div>

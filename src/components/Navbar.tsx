@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, Menu, X } from "lucide-react";
+import { BookOpen, Menu, X, Settings } from "lucide-react";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -55,23 +55,39 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Right: CTA Button */}
-        <div className="hidden md:block">
+        {/* Right: CTA Button & Settings */}
+        <div className="hidden md:flex items-center gap-4">
           <Link 
             href="/mushaf"
             className="px-6 py-2.5 rounded-full primary-gradient text-white text-sm font-semibold soft-shadow hover:scale-105 active:scale-95 transition-all inline-block"
           >
             👉 Buka Al-Quran
           </Link>
+          <Link
+            href="/settings"
+            className="w-10 h-10 rounded-full bg-white/80 hover:bg-primary hover:text-white transition-all flex items-center justify-center text-foreground/70 soft-shadow border border-secondary/50"
+            aria-label="Pengaturan"
+          >
+            <Settings size={20} />
+          </Link>
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile Menu Toggle & Settings */}
+        <div className="flex items-center gap-3 md:hidden">
+          <Link
+            href="/settings"
+            className="w-10 h-10 rounded-full bg-white/80 flex items-center justify-center text-foreground/70 soft-shadow border border-secondary/50"
+            aria-label="Pengaturan"
+          >
+            <Settings size={20} />
+          </Link>
+          <button
+            className="text-foreground p-1"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -104,13 +120,21 @@ const Navbar = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
+              className="pt-4 border-t border-secondary flex flex-col gap-3"
             >
               <Link
                 href="/mushaf"
-                className="mt-4 px-6 py-4 rounded-2xl primary-gradient text-white font-bold text-lg text-center soft-shadow active:scale-95 transition-all block"
+                className="px-6 py-4 rounded-2xl primary-gradient text-white font-bold text-lg text-center soft-shadow active:scale-95 transition-all block"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 👉 Buka Al-Quran
+              </Link>
+              <Link
+                href="/settings"
+                className="px-6 py-4 rounded-2xl bg-secondary text-foreground font-bold text-lg text-center soft-shadow active:scale-95 transition-all flex items-center justify-center gap-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Settings size={22} /> Pengaturan
               </Link>
             </motion.div>
           </motion.div>

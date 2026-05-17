@@ -27,8 +27,8 @@ const tafsirBooks = [
 
 export default function TafsirIndexPage() {
   return (
-    <main className="min-h-screen bg-[#F8FAFB] pb-20">
-      <div className="bg-foreground pt-20 pb-32 px-6">
+    <main className="min-h-screen bg-background pb-20 transition-colors duration-300">
+      <div className="bg-foreground pt-20 pb-32 px-6 transition-colors duration-300">
         <div className="container mx-auto">
           <Link href="/" className="inline-flex items-center gap-2 text-white/50 font-bold mb-8 hover:text-white transition-all">
             <ArrowLeft size={20} /> Kembali
@@ -44,7 +44,7 @@ export default function TafsirIndexPage() {
       <div className="container mx-auto px-6 -mt-16">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {tafsirBooks.map((book) => (
-            <Link key={book.title} href={book.href} className="bg-white p-8 rounded-[40px] soft-shadow border border-secondary group hover:border-primary/20 transition-all flex flex-col h-full">
+            <Link key={book.title} href={book.href} className="bg-card p-8 rounded-[40px] soft-shadow border border-border group hover:border-primary/40 transition-all flex flex-col h-full duration-300">
               <div className="flex justify-between items-start mb-8">
                 <div className={`w-16 h-16 rounded-2xl ${book.bgColor} flex items-center justify-center ${book.iconColor}`}>
                   <BookOpen size={32} />
@@ -57,10 +57,10 @@ export default function TafsirIndexPage() {
               <div className="flex-1">
                 <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{book.title}</h2>
                 <p className="text-sm text-foreground/40 mb-4 font-medium italic">Karya: {book.author}</p>
-                <p className="text-foreground/60 leading-relaxed">{book.description}</p>
+                <p className="text-foreground/70 leading-relaxed">{book.description}</p>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-secondary flex items-center justify-between">
+              <div className="mt-8 pt-6 border-t border-border flex items-center justify-between">
                 <span className="font-bold text-sm text-primary">Mulai Belajar</span>
                 <div className={`w-10 h-10 rounded-full ${book.bgColor} flex items-center justify-center ${book.iconColor} group-hover:scale-110 transition-transform`}>
                   <ChevronRight size={20} />
@@ -71,7 +71,7 @@ export default function TafsirIndexPage() {
         </div>
 
         <div className="mt-20 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary/50 text-foreground/40 text-sm font-medium border border-secondary">
+          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary/50 text-foreground/40 text-sm font-medium border border-border">
             <Star size={16} className="text-yellow-500" /> Lebih banyak kitab tafsir akan segera hadir
           </div>
         </div>
