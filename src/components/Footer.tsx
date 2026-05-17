@@ -77,17 +77,10 @@ const Footer = () => {
               <div className="mt-4 p-4 rounded-2xl bg-secondary border border-border transition-colors">
                 <p className="text-xs text-foreground/70 mb-3">Dapatkan update konten dakwah terbaru.</p>
                 <div className="flex gap-2">
-<<<<<<< HEAD
-                  <input
-                    type="email"
-                    placeholder="Email Anda"
-                    className="bg-white px-4 py-2 rounded-xl text-sm w-full outline-none border border-transparent focus:border-primary/30"
-=======
                   <input 
                     type="email" 
                     placeholder="Email Anda" 
                     className="bg-card px-4 py-2 rounded-xl text-sm w-full outline-none border border-border text-foreground focus:border-primary/50 transition-colors"
->>>>>>> 0b9d02a (feat: add dark mode and change language)
                   />
                   <button className="p-2 rounded-xl primary-gradient text-white">
                     👉
@@ -99,13 +92,8 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-<<<<<<< HEAD
-        <div className="pt-8 border-t border-secondary flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-foreground/40 text-center md:text-left">
-          <p>© 2026 Pusat Dakwah dan Pendidikan . All rights reserved.</p>
-=======
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-foreground/50 text-center md:text-left">
-          <p>© 2024 Creative Al-Quran. All rights reserved.</p>
->>>>>>> 0b9d02a (feat: add dark mode and change language)
+          <p>© 2026 Pusat Dakwah dan Pendidikan . All rights reserved.</p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             <Link href="#" className="hover:text-primary transition-colors">Syarat & Ketentuan</Link>
             <Link href="#" className="hover:text-primary transition-colors">Kebijakan Privasi</Link>
