@@ -72,14 +72,14 @@ const Footer = () => {
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3 text-foreground/60">
                 <Mail size={18} className="text-primary" />
-                <span>info@creativequran.id</span>
+                <span>infocreativequran@gmail.com</span>
               </div>
               <div className="mt-4 p-4 rounded-2xl bg-secondary/50 border border-secondary">
                 <p className="text-xs text-foreground/60 mb-3">Dapatkan update konten dakwah terbaru.</p>
                 <div className="flex gap-2">
-                  <input 
-                    type="email" 
-                    placeholder="Email Anda" 
+                  <input
+                    type="email"
+                    placeholder="Email Anda"
                     className="bg-white px-4 py-2 rounded-xl text-sm w-full outline-none border border-transparent focus:border-primary/30"
                   />
                   <button className="p-2 rounded-xl primary-gradient text-white">
@@ -93,7 +93,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="pt-8 border-t border-secondary flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-foreground/40 text-center md:text-left">
-          <p>© 2024 Creative Al-Quran. All rights reserved.</p>
+          <p>© 2026 Pusat Dakwah dan Pendidikan . All rights reserved.</p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             <Link href="#" className="hover:text-primary transition-colors">Syarat & Ketentuan</Link>
             <Link href="#" className="hover:text-primary transition-colors">Kebijakan Privasi</Link>
