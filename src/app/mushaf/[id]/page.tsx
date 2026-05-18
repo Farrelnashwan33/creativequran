@@ -356,7 +356,7 @@ function SurahDetailPageContent() {
 
       {/* Verses */}
       <div className="container mx-auto px-4 md:px-6 lg:max-w-4xl mt-10 pb-24">
-        <div className="flex flex-col gap-6 md:gap-8">
+        <div className="flex flex-col gap-4 md:gap-6">
           {surah.ayat.map((ayat) => (
             <motion.div
               key={ayat.nomorAyat}
@@ -368,14 +368,14 @@ function SurahDetailPageContent() {
             >
               <div 
                 id={`ayat-${ayat.nomorAyat}`}
-                className={`bg-card rounded-[32px] p-6 md:p-10 soft-shadow border transition-all duration-300 ${
+                className={`bg-card rounded-2xl md:rounded-[32px] p-4 md:p-8 soft-shadow border transition-all duration-300 ${
                   playingAudio === ayat.nomorAyat 
                     ? "border-primary/60 bg-primary/[0.015]" 
                     : "border-border group-hover:border-primary/40"
                 }`}
               >
                 {/* Verse Number & Controls */}
-                <div className="flex items-center justify-between mb-6 md:mb-8">
+                <div className="flex items-center justify-between mb-4 md:mb-6">
                   <div className="flex items-center gap-3">
                     <div className="relative shrink-0">
                       <svg width="48" height="48" viewBox="0 0 100 100" className="text-secondary/40">
@@ -434,13 +434,13 @@ function SurahDetailPageContent() {
 
                 {/* Arabic Text */}
                 {showArabic && (
-                  <div className="text-right mb-6 md:mb-8">
+                  <div className="text-right mb-4 md:mb-6">
                     {wordByWord ? (
-                      <div className="flex flex-row-reverse flex-wrap gap-x-4 gap-y-6 justify-start leading-loose">
+                      <div className="flex flex-row-reverse flex-wrap gap-x-2 gap-y-3 md:gap-x-4 md:gap-y-4 justify-start leading-[1.8] md:leading-normal">
                         {ayat.teksArab.split(" ").map((word, wordIndex) => (
                           <div 
                             key={wordIndex} 
-                            className="flex flex-col items-center p-2 rounded-xl hover:bg-secondary/50 transition-all group cursor-pointer"
+                            className="flex flex-col items-center p-1 md:p-1.5 rounded-xl hover:bg-secondary/50 transition-all group cursor-pointer"
                           >
                             <span 
                               className="font-arabic text-foreground select-none group-hover:text-primary transition-colors"
@@ -454,7 +454,7 @@ function SurahDetailPageContent() {
                       </div>
                     ) : (
                       <p
-                        className="font-arabic leading-[2.8] md:leading-[3.2] text-foreground select-none"
+                        className="font-arabic leading-[1.8] md:leading-[2.2] text-foreground select-none"
                         style={{ fontSize: `${fontSize}px` }}
                       >
                         {ayat.teksArab}
@@ -473,7 +473,7 @@ function SurahDetailPageContent() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="space-y-4 pt-6 border-t border-border/80">
+                      <div className="space-y-3 md:space-y-4 pt-4 md:pt-6 border-t border-border/80">
                         <div>
                           <p className="text-[10px] font-bold text-primary/30 uppercase tracking-[0.2em] mb-2">
                             Latin
