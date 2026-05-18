@@ -17,6 +17,9 @@ const amiri = Amiri({
 export const metadata: Metadata = {
   title: "Creative Al-Quran – Pusat Dakwah dan Pendidikan",
   description: "Platform membaca, memahami, dan mentadabburi Al-Quran dengan fitur mushaf, tafsir, dan pengaturan teks lengkap.",
+  verification: {
+    google: "fm-HMozBovTx_yz7XhH3jUtD5rlDFmvYEe50w67aIXo",
+  },
 };
 
 export default function RootLayout({

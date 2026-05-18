@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/set-state-in-effect, @typescript-eslint/no-explicit-any */
+
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -328,13 +330,13 @@ function SurahDetailPageContent() {
             </button>
             <button
               onClick={() => {
-                const nextVal = !showArabic;
-                setShowArabic(nextVal);
-                localStorage.setItem("settings_munculkanArab", String(nextVal));
+                const nextVal = !showTranslation;
+                setShowTranslation(nextVal);
+                localStorage.setItem("settings_munculkanTerjemahan", String(nextVal));
               }}
-              title="Tampilkan/Sembunyikan Teks Arab"
+              title="Tampilkan/Sembunyikan Terjemahan"
               className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold transition-all ${
-                showArabic
+                showTranslation
                   ? "bg-primary/10 text-primary"
                   : "text-foreground/40 hover:bg-secondary hover:text-primary"
               }`}
@@ -358,13 +360,13 @@ function SurahDetailPageContent() {
             </button>
             <button
               onClick={() => {
-                const nextVal = !showTranslation;
-                setShowTranslation(nextVal);
-                localStorage.setItem("settings_munculkanTerjemahan", String(nextVal));
+                const nextVal = !showArabic;
+                setShowArabic(nextVal);
+                localStorage.setItem("settings_munculkanArab", String(nextVal));
               }}
-              title="Tampilkan/Sembunyikan Terjemahan"
+              title="Tampilkan/Sembunyikan Teks Arab"
               className={`p-2 rounded-xl transition-all ${
-                showTranslation
+                showArabic
                   ? "bg-primary/10 text-primary"
                   : "text-foreground/40 hover:bg-secondary hover:text-primary"
               }`}
