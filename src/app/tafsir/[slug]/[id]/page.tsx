@@ -90,7 +90,7 @@ export default async function TafsirDetailPage({
     <main className="min-h-screen bg-background pb-24 transition-colors duration-300">
       {/* Header */}
       <div
-        className={`${bookMeta.bg} pt-28 md:pt-32 pb-28 px-6 relative overflow-hidden`}
+        className={`${bookMeta.bg} pt-28 md:pt-32 pb-28 px-4 sm:px-6 relative overflow-hidden`}
         style={isOrange ? { background: "#F76B1C" } : undefined}
       >
         <div
@@ -108,8 +108,8 @@ export default async function TafsirDetailPage({
             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
             Kembali ke Indeks
           </Link>
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 w-full">
+            <div className="flex-1 w-full">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-white text-[10px] font-bold uppercase tracking-widest mb-4 border border-white/20">
                 {bookMeta.label} • Surah {data.nomor}
               </div>
@@ -118,7 +118,7 @@ export default async function TafsirDetailPage({
                 {data.arti} • {data.jumlahAyat} Ayat • {data.tempatTurun}
               </p>
             </div>
-            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
+            <div className="hidden sm:flex w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md items-center justify-center text-white border border-white/20 shrink-0">
               <BookOpenCheck size={32} />
             </div>
           </div>
@@ -126,9 +126,9 @@ export default async function TafsirDetailPage({
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 md:px-6 lg:max-w-4xl -mt-14 relative z-20">
+      <div className="container mx-auto px-4 md:px-6 lg:max-w-4xl -mt-8 md:-mt-14 relative z-20">
         {/* Info banner */}
-        <div className="bg-card rounded-[28px] p-4 soft-shadow border border-border mb-8 flex items-center gap-3 transition-colors duration-300">
+        <div className="bg-card rounded-[20px] sm:rounded-[28px] p-4 soft-shadow border border-border mb-8 flex items-center gap-3 transition-colors duration-300">
           <Info size={20} className="text-primary shrink-0" />
           <p className="text-sm text-foreground/70 leading-relaxed">
             Tafsir ini bersumber dari Kemenag RI — standar tafsir resmi yang shahih dan moderat.
@@ -141,10 +141,10 @@ export default async function TafsirDetailPage({
             <div
               key={item.ayat}
               style={{ animationDelay: `${index < 5 ? index * 0.05 : 0}s` }}
-              className="bg-card rounded-[28px] p-6 md:p-8 soft-shadow border border-border hover:border-primary/40 transition-all animate-fade-in-up opacity-0 duration-300"
+              className="bg-card rounded-[20px] sm:rounded-[28px] p-4 sm:p-6 md:p-8 soft-shadow border border-border hover:border-primary/40 transition-all animate-fade-in-up opacity-0 duration-300"
             >
               {/* Verse number badge */}
-              <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-2 sm:gap-3 mb-5">
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm text-white shadow-lg shrink-0 ${
                     !isOrange ? "bg-primary" : ""
@@ -160,9 +160,9 @@ export default async function TafsirDetailPage({
               </div>
 
               {/* Tafsir text */}
-              <div className="text-foreground/90 leading-[1.9] text-base md:text-[17px] text-justify">
+              <div className="text-foreground/90 leading-[1.9] text-sm sm:text-base md:text-[17px] text-left sm:text-justify">
                 {item.teks.split("\n").filter(Boolean).map((para, i) => (
-                  <p key={i} className={i > 0 ? "mt-4" : ""}>
+                  <p key={i} className={i > 0 ? "mt-3 sm:mt-4" : ""}>
                     {para}
                   </p>
                 ))}
@@ -172,30 +172,30 @@ export default async function TafsirDetailPage({
         </div>
 
         {/* Footer Navigation */}
-        <div className="mt-10 flex items-center justify-between gap-4">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
           {data.suratSebelumnya ? (
             <Link
               href={`/tafsir/${slug}/${data.suratSebelumnya.nomor}`}
-              className="flex-1 bg-card p-5 md:p-6 rounded-[28px] soft-shadow border border-border flex items-center gap-4 hover:border-primary/30 transition-all group duration-300"
+              className="bg-card p-4 sm:p-5 md:p-6 rounded-[20px] sm:rounded-[28px] soft-shadow border border-border flex items-center gap-4 hover:border-primary/30 transition-all group duration-300 w-full"
             >
               <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
                 <ChevronLeft size={22} />
               </div>
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Sebelumnya</p>
                 <p className="font-bold text-foreground text-sm truncate">{data.suratSebelumnya.namaLatin}</p>
               </div>
             </Link>
           ) : (
-            <div className="flex-1" />
+            <div className="hidden sm:block" />
           )}
 
           {data.suratSelanjutnya ? (
             <Link
               href={`/tafsir/${slug}/${data.suratSelanjutnya.nomor}`}
-              className="flex-1 bg-card p-5 md:p-6 rounded-[28px] soft-shadow border border-border flex items-center justify-between gap-4 hover:border-primary/30 transition-all group duration-300"
+              className="bg-card p-4 sm:p-5 md:p-6 rounded-[20px] sm:rounded-[28px] soft-shadow border border-border flex items-center justify-between gap-4 hover:border-primary/30 transition-all group duration-300 w-full"
             >
-              <div className="min-w-0 text-right">
+              <div className="min-w-0 text-left sm:text-right flex-1">
                 <p className="text-[10px] font-bold text-foreground/30 uppercase tracking-widest">Selanjutnya</p>
                 <p className="font-bold text-foreground text-sm truncate">{data.suratSelanjutnya.namaLatin}</p>
               </div>
@@ -204,7 +204,7 @@ export default async function TafsirDetailPage({
               </div>
             </Link>
           ) : (
-            <div className="flex-1" />
+            <div className="hidden sm:block" />
           )}
         </div>
       </div>

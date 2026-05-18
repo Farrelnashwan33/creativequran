@@ -141,7 +141,7 @@ export default function JalalainPage() {
   return (
     <main className="min-h-screen bg-[#FFFBF7] pb-20">
       {/* Header Section */}
-      <div className="bg-[#F76B1C] pt-28 md:pt-32 pb-32 px-6 relative overflow-hidden">
+      <div className="bg-[#F76B1C] pt-28 md:pt-32 pb-32 px-4 sm:px-6 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/honey-comb.png')] pointer-events-none"></div>
         <div className="container mx-auto relative z-10">
           <Link 
@@ -151,8 +151,8 @@ export default function JalalainPage() {
             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> Kembali ke Beranda
           </Link>
           
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
-            <div className="flex-1">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 w-full">
+            <div className="flex-1 w-full">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30">
                   <BookOpen size={30} />
@@ -169,7 +169,7 @@ export default function JalalainPage() {
             
             <button 
               onClick={handleDownload}
-              className="flex items-center gap-3 bg-white text-[#F76B1C] px-8 py-4 rounded-2xl font-bold soft-shadow hover:bg-orange-50 transition-all active:scale-95"
+              className="w-full md:w-auto flex items-center justify-center gap-3 bg-white text-[#F76B1C] px-8 py-4 rounded-2xl font-bold soft-shadow hover:bg-orange-50 transition-all active:scale-95 shrink-0"
             >
               <Download size={22} /> Simpan PDF Lengkap
             </button>
@@ -177,7 +177,7 @@ export default function JalalainPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 -mt-16 relative z-20">
+      <div className="container mx-auto px-4 sm:px-6 -mt-16 relative z-20">
         {/* Search & Filter Bar */}
         <div className="bg-white p-4 rounded-[24px] soft-shadow border border-orange-100 mb-12 flex items-center gap-4">
           <div className="bg-orange-50 p-3 rounded-xl text-[#F76B1C]/40">
@@ -186,7 +186,7 @@ export default function JalalainPage() {
           <input 
             type="text" 
             placeholder="Cari surah Jalalain..." 
-            className="flex-1 bg-transparent outline-none text-lg font-medium text-foreground"
+            className="flex-1 bg-transparent outline-none text-sm sm:text-lg font-medium text-foreground"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
