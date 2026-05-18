@@ -113,3 +113,7 @@ body {
   animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+.font-arabic {
+  font-family: var(--font-amiri), serif;
+}
+

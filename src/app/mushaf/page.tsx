@@ -156,23 +156,23 @@ export default function MushafPage() {
 
       <div className="container mx-auto px-6 -mt-12">
         {/* Search and Filter Section */}
-        <div className="bg-card/70 backdrop-blur-xl p-5 md:p-6 rounded-[32px] soft-shadow border border-border flex flex-col lg:flex-row gap-6 mb-12 transition-colors duration-300">
+        <div className="bg-card/70 backdrop-blur-xl p-4 md:p-6 rounded-[32px] soft-shadow border border-border flex flex-col md:flex-row items-stretch md:items-center gap-4 md:gap-6 mb-12 transition-colors duration-300">
           <div className="flex-1 flex items-center gap-4 bg-secondary px-6 py-4 rounded-2xl border border-border focus-within:border-primary/30 transition-all">
-            <Search size={22} className="text-primary/40" />
+            <Search size={22} className="text-primary/40 shrink-0" />
             <input 
               type="text" 
               placeholder="Cari surah (misal: Al-Kahf atau 18)..." 
-              className="bg-transparent outline-none w-full font-semibold text-foreground placeholder:text-foreground/20"
+              className="bg-transparent outline-none w-full font-semibold text-foreground placeholder:text-foreground/20 text-sm md:text-base"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <div className="flex p-1.5 bg-secondary rounded-2xl border border-border transition-colors">
+          <div className="flex p-1 bg-secondary rounded-2xl border border-border w-full md:w-auto transition-colors">
             {["Semua", "Makkiyah", "Madaniyah"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab.toLowerCase())}
-                className={`px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                className={`flex-1 md:flex-none text-center px-4 md:px-6 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all whitespace-nowrap ${
                   activeTab === tab.toLowerCase() 
                   ? "bg-card text-primary soft-shadow font-extrabold" 
                   : "text-foreground/50 hover:text-foreground/80 font-semibold"

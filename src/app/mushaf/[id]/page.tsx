@@ -55,12 +55,23 @@ function SurahDetailPageContent() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    const loadSettings = () => {
       setShowArabic(localStorage.getItem("settings_munculkanArab") !== "false");
       setShowTranslation(localStorage.getItem("settings_munculkanTerjemahan") !== "false");
       setWordByWord(localStorage.getItem("settings_kataPerKata") !== "false");
       setTranslationSource(localStorage.getItem("settings_terjemahan") || "Indonesian - Sabeq Company");
+    };
+
+    if (typeof window !== "undefined") {
+      loadSettings();
+      window.addEventListener("settings_updated", loadSettings);
     }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("settings_updated", loadSettings);
+      }
+    };
   }, []);
   const autoplayTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -123,6 +134,17 @@ function SurahDetailPageContent() {
       }
       
       setPlayingAudio(ayat.nomorAyat);
+
+      // Smooth scroll to the active playing verse (centered in the viewport)
+      setTimeout(() => {
+        const element = document.getElementById(`ayat-${ayat.nomorAyat}`);
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+      }, 100);
     } catch (error) {
       console.error("Error updating audio src:", error);
     }
@@ -230,6 +252,21 @@ function SurahDetailPageContent() {
             </button>
             <button
               onClick={() => {
+                const nextVal = !showArabic;
+                setShowArabic(nextVal);
+                localStorage.setItem("settings_munculkanArab", String(nextVal));
+              }}
+              title="Tampilkan/Sembunyikan Teks Arab"
+              className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold transition-all ${
+                showArabic
+                  ? "bg-primary/10 text-primary"
+                  : "text-foreground/40 hover:bg-secondary hover:text-primary"
+              }`}
+            >
+              <span className="text-[17px] font-bold font-arabic leading-none mt-[-2px]">ع</span>
+            </button>
+            <button
+              onClick={() => {
                 const nextVal = !showTranslation;
                 setShowTranslation(nextVal);
                 localStorage.setItem("settings_munculkanTerjemahan", String(nextVal));
@@ -294,7 +331,14 @@ function SurahDetailPageContent() {
               transition={{ duration: 0.4 }}
               className="relative group"
             >
-              <div className="bg-card rounded-[32px] p-6 md:p-10 soft-shadow border border-border group-hover:border-primary/40 transition-all duration-300">
+              <div 
+                id={`ayat-${ayat.nomorAyat}`}
+                className={`bg-card rounded-[32px] p-6 md:p-10 soft-shadow border transition-all duration-300 ${
+                  playingAudio === ayat.nomorAyat 
+                    ? "border-primary/60 bg-primary/[0.015]" 
+                    : "border-border group-hover:border-primary/40"
+                }`}
+              >
                 {/* Verse Number & Controls */}
                 <div className="flex items-center justify-between mb-6 md:mb-8">
                   <div className="flex items-center gap-3">
