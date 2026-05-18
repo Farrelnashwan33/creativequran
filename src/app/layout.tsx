@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Amiri } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
+import NotificationManager from "@/components/NotificationManager";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,6 +18,7 @@ const amiri = Amiri({
 export const metadata: Metadata = {
   title: "Creative Al-Quran – Pusat Dakwah dan Pendidikan",
   description: "Platform membaca, memahami, dan mentadabburi Al-Quran dengan fitur mushaf, tafsir, dan pengaturan teks lengkap.",
+  manifest: "/manifest.json",
   verification: {
     google: "fm-HMozBovTx_yz7XhH3jUtD5rlDFmvYEe50w67aIXo",
   },
@@ -33,7 +35,10 @@ export default function RootLayout({
       className={`${inter.variable} ${amiri.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+          <NotificationManager />
+        </ThemeProvider>
       </body>
     </html>
   );

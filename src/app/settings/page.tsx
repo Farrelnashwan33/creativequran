@@ -194,6 +194,11 @@ export default function SettingsPage() {
   const [tema, setTema] = useState("Terang");
   const [notifikasi, setNotifikasi] = useState("Manage Notifications");
 
+  // Notification management states
+  const [notifReminder, setNotifReminder] = useState(true);
+  const [notifUpdates, setNotifUpdates] = useState(true);
+  const [browserPermission, setBrowserPermission] = useState<string>("default");
+
   // Load from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -207,8 +212,82 @@ export default function SettingsPage() {
       setJenisMushaf(localStorage.getItem("settings_jenisMushaf") || "Teks Unicode Mushaf");
       setTema(localStorage.getItem("settings_tema") || "Terang");
       setNotifikasi(localStorage.getItem("settings_notifikasi") || "Manage Notifications");
+
+      setNotifReminder(localStorage.getItem("settings_notif_reminder") !== "false");
+      setNotifUpdates(localStorage.getItem("settings_notif_updates") !== "false");
+      if ("Notification" in window) {
+        setBrowserPermission(Notification.permission);
+      }
     }
   }, []);
+
+  const triggerTestNotif = (title: string, body: string, url: string = "/") => {
+    if (typeof window !== "undefined" && "Notification" in window) {
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission().then((status) => {
+          setBrowserPermission(status);
+          if (status === "granted") {
+            sendNotif(title, body, url);
+          } else {
+            alert("Harap aktifkan izin notifikasi di browser Anda terlebih dahulu.");
+          }
+        });
+      } else {
+        sendNotif(title, body, url);
+      }
+    } else {
+      alert("Browser Anda tidak mendukung notifikasi sistem.");
+    }
+  };
+
+  const sendNotif = (title: string, body: string, url: string = "/") => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then((reg) => {
+        if (reg.active) {
+          reg.active.postMessage({
+            type: "TRIGGER_NOTIFICATION",
+            title,
+            body,
+            url
+          });
+        } else {
+          new Notification(title, { body, icon: "/favicon.ico" });
+        }
+      }).catch(() => {
+        new Notification(title, { body, icon: "/favicon.ico" });
+      });
+    } else {
+      new Notification(title, { body, icon: "/favicon.ico" });
+    }
+  };
+
+  const toggleNotifReminder = () => {
+    const newVal = !notifReminder;
+    setNotifReminder(newVal);
+    localStorage.setItem("settings_notif_reminder", String(newVal));
+    updateNotifLabel(newVal, notifUpdates);
+  };
+
+  const toggleNotifUpdates = () => {
+    const newVal = !notifUpdates;
+    setNotifUpdates(newVal);
+    localStorage.setItem("settings_notif_updates", String(newVal));
+    updateNotifLabel(notifReminder, newVal);
+  };
+
+  const updateNotifLabel = (reminder: boolean, updates: boolean) => {
+    let label = "Manage Notifications";
+    if (reminder && updates) {
+      label = "Enable All";
+    } else if (!reminder && !updates) {
+      label = "Disable All";
+    } else {
+      label = "Custom";
+    }
+    setNotifikasi(label);
+    localStorage.setItem("settings_notifikasi", label);
+    window.dispatchEvent(new Event("settings_updated"));
+  };
 
   // Dispatch custom event when settings are updated to sync across the app
   const updateSetting = (key: string, value: any) => {
@@ -546,36 +625,147 @@ export default function SettingsPage() {
                 </button>
               </div>
 
-              {/* List of options */}
-              <div className="overflow-y-auto py-2 max-h-[50vh] bg-card">
-                {activeSelection.options.map((opt) => {
-                  const isSelected = activeSelection.currentValue === opt;
-                  const displayLabel = getOptionLabel(activeSelection.key, opt, t);
-                  return (
-                    <button
-                      key={opt}
-                      onClick={() => {
-                        updateSetting(activeSelection.key, opt);
-                        setActiveSelection(null);
-                      }}
-                      className={`w-full flex items-center justify-between px-6 py-4 text-left transition-colors border-b border-border/40 last:border-b-0 hover:bg-primary/5 cursor-pointer ${
-                        isSelected ? "bg-primary/5 text-primary font-bold" : "text-foreground"
-                      }`}
-                    >
-                      <span className={`font-bold text-base ${isSelected ? "text-primary" : "text-foreground"}`}>
-                        {displayLabel}
+              {/* Custom Notification Dashboard or Standard list of options */}
+              {activeSelection.key === "notifikasi" ? (
+                <div className="p-6 bg-card flex flex-col gap-6 overflow-y-auto max-h-[55vh]">
+                  {/* Browser permission status card */}
+                  <div className="bg-secondary p-4.5 rounded-2xl border border-border flex flex-col gap-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-bold text-foreground/75">Status Izin Browser:</span>
+                      <span className={`text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider ${
+                        browserPermission === "granted" 
+                          ? "bg-primary/10 text-primary" 
+                          : browserPermission === "denied"
+                          ? "bg-red-500/10 text-red-500"
+                          : "bg-orange-500/10 text-orange-500"
+                      }`}>
+                        {browserPermission === "granted" ? "Diizinkan" : browserPermission === "denied" ? "Ditolak" : "Belum Aktif"}
                       </span>
-                      {isSelected && (
-                        <div className="w-[22px] h-[22px] rounded-full bg-primary flex items-center justify-center shrink-0">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
+                    </div>
+                    {browserPermission !== "granted" && (
+                      <button
+                        onClick={() => {
+                          if ("Notification" in window) {
+                            Notification.requestPermission().then((status) => {
+                              setBrowserPermission(status);
+                              if (status === "granted") {
+                                sendNotif("Notifikasi Aktif! 🎉", "Selamat! Anda berhasil mengaktifkan notifikasi Creative Quran.");
+                              }
+                            });
+                          }
+                        }}
+                        className="w-full bg-primary text-white text-xs font-bold py-2.5 px-4 rounded-xl hover:bg-primary-dark transition-all cursor-pointer text-center"
+                      >
+                        Aktifkan Izin Notifikasi
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Switch Settings Section */}
+                  <div className="flex flex-col gap-4">
+                    {/* Toggle: Pengingat Harian */}
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-bold text-base text-foreground leading-tight">Pengingat Harian</p>
+                        <p className="text-xs text-foreground/60 leading-normal mt-0.5">Ingatkan jika belum membaca hari ini</p>
+                      </div>
+                      <button
+                        onClick={toggleNotifReminder}
+                        className={`w-12 h-6 rounded-full p-1 transition-colors relative cursor-pointer ${
+                          notifReminder ? "bg-primary" : "bg-foreground/20"
+                        }`}
+                      >
+                        <motion.div
+                          layout
+                          className="w-4 h-4 rounded-full bg-white"
+                          animate={{ x: notifReminder ? 24 : 0 }}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        />
+                      </button>
+                    </div>
+
+                    {/* Toggle: Info Update */}
+                    <div className="flex items-center justify-between pt-4 border-t border-border/60">
+                      <div>
+                        <p className="font-bold text-base text-foreground leading-tight">Notifikasi Update</p>
+                        <p className="text-xs text-foreground/60 leading-normal mt-0.5">Berita update tafsir & fitur baru</p>
+                      </div>
+                      <button
+                        onClick={toggleNotifUpdates}
+                        className={`w-12 h-6 rounded-full p-1 transition-colors relative cursor-pointer ${
+                          notifUpdates ? "bg-primary" : "bg-foreground/20"
+                        }`}
+                      >
+                        <motion.div
+                          layout
+                          className="w-4 h-4 rounded-full bg-white"
+                          animate={{ x: notifUpdates ? 24 : 0 }}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Testing Section */}
+                  <div className="border-t border-border pt-5 mt-2">
+                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-3 flex items-center gap-1">
+                      <span>⚡</span> Uji Notifikasi Live (Coba Sekarang!)
+                    </p>
+                    <div className="grid grid-cols-1 gap-3">
+                      <button
+                        onClick={() => triggerTestNotif(
+                          "Anda belum membaca Creative Quran hari ini!",
+                          "Luangkan waktu 5 menit hari ini untuk membaca Al-Quran dan memperdalam pemahaman tafsir.",
+                          "/mushaf/1"
+                        )}
+                        className="w-full flex items-center justify-center gap-2 bg-secondary text-primary hover:bg-primary hover:text-white border border-primary/20 hover:border-transparent font-bold text-xs py-3 px-4 rounded-xl transition-all cursor-pointer active:scale-[0.98]"
+                      >
+                        🔔 Uji Pengingat Membaca
+                      </button>
+                      <button
+                        onClick={() => triggerTestNotif(
+                          "Ada update terbaru dari Creative Quran",
+                          "Tafsir Ibnu Katsir & Jalalain kini telah sepenuhnya diperbarui dengan standar kemenag RI terbaru.",
+                          "/tafsir"
+                        )}
+                        className="w-full flex items-center justify-center gap-2 bg-secondary text-primary hover:bg-primary hover:text-white border border-primary/20 hover:border-transparent font-bold text-xs py-3 px-4 rounded-xl transition-all cursor-pointer active:scale-[0.98]"
+                      >
+                        🚀 Uji Notifikasi Update
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="overflow-y-auto py-2 max-h-[50vh] bg-card">
+                  {activeSelection.options.map((opt) => {
+                    const isSelected = activeSelection.currentValue === opt;
+                    const displayLabel = getOptionLabel(activeSelection.key, opt, t);
+                    return (
+                      <button
+                        key={opt}
+                        onClick={() => {
+                          updateSetting(activeSelection.key, opt);
+                          setActiveSelection(null);
+                        }}
+                        className={`w-full flex items-center justify-between px-6 py-4 text-left transition-colors border-b border-border/40 last:border-b-0 hover:bg-primary/5 cursor-pointer ${
+                          isSelected ? "bg-primary/5 text-primary font-bold" : "text-foreground"
+                        }`}
+                      >
+                        <span className={`font-bold text-base ${isSelected ? "text-primary" : "text-foreground"}`}>
+                          {displayLabel}
+                        </span>
+                        {isSelected && (
+                          <div className="w-[22px] h-[22px] rounded-full bg-primary flex items-center justify-center shrink-0">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </motion.div>
           </div>
         )}
