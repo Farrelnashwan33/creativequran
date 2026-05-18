@@ -54,6 +54,7 @@ function SurahDetailPageContent() {
   const [showTranslation, setShowTranslation] = useState(true);
   const [wordByWord, setWordByWord] = useState(true);
   const [translationSource, setTranslationSource] = useState("Indonesian - Sabeq Company");
+  const [wbwData, setWbwData] = useState<any[] | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -87,6 +88,19 @@ function SurahDetailPageContent() {
         const json = await res.json();
         if (!json.data) throw new Error("No data");
         setSurah(json.data);
+
+        // Fetch Indonesian word-by-word data from quran.com
+        try {
+          const wbwRes = await fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?words=true&language=id&word_fields=text_uthmani&per_page=300`);
+          if (wbwRes.ok) {
+            const wbwJson = await wbwRes.json();
+            if (wbwJson.verses) {
+              setWbwData(wbwJson.verses);
+            }
+          }
+        } catch (wbwErr) {
+          console.error("Failed to fetch word-by-word data:", wbwErr);
+        }
       } catch {
         setError(true);
       } finally {
@@ -460,21 +474,49 @@ function SurahDetailPageContent() {
                 {showArabic && (
                   <div className="text-right mb-4 md:mb-6">
                     {wordByWord ? (
-                      <div className="flex flex-row-reverse flex-wrap gap-x-2 gap-y-3 md:gap-x-4 md:gap-y-4 justify-start leading-[1.8] md:leading-normal">
-                        {ayat.teksArab.split(" ").map((word, wordIndex) => (
-                          <div 
-                            key={wordIndex} 
-                            className="flex flex-col items-center p-1 md:p-1.5 rounded-xl hover:bg-secondary/50 transition-all group cursor-pointer"
-                          >
-                            <span 
-                              className="font-arabic text-foreground select-none group-hover:text-primary transition-colors"
-                              style={{ fontSize: `${fontSize}px` }}
-                            >
-                              {word}
-                            </span>
-                            <span className="w-1.5 h-1 bg-primary/20 rounded-full scale-0 group-hover:scale-100 transition-transform mt-1" />
-                          </div>
-                        ))}
+                      <div className="flex flex-row-reverse flex-wrap gap-x-2.5 gap-y-3.5 md:gap-x-4 md:gap-y-4 justify-start leading-[1.8] md:leading-normal">
+                        {(() => {
+                          const wbwVerse = wbwData?.find(v => v.verse_number === ayat.nomorAyat);
+                          const words = wbwVerse?.words?.filter((w: any) => w.char_type_name === "word") || [];
+                          
+                          if (words.length > 0) {
+                            return words.map((w: any, wIdx: number) => (
+                              <div 
+                                key={w.id || wIdx} 
+                                className="flex flex-col items-center px-2 py-1.5 md:px-2.5 md:py-2 rounded-xl bg-secondary/30 hover:bg-secondary/70 border border-border/40 hover:border-primary/20 transition-all duration-300 group cursor-pointer min-w-[60px] max-w-[125px] text-center"
+                              >
+                                <span 
+                                  className="font-arabic text-foreground select-none group-hover:text-primary transition-colors"
+                                  style={{ fontSize: `${fontSize}px` }}
+                                >
+                                  {w.text_uthmani}
+                                </span>
+                                <span className="text-[10px] md:text-xs text-foreground/60 font-medium mt-1 leading-tight group-hover:text-primary transition-colors break-words max-w-full">
+                                  {w.translation?.text || ""}
+                                </span>
+                                <span className="text-[8px] md:text-[9px] text-foreground/40 font-semibold tracking-wide mt-0.5 leading-none">
+                                  {w.transliteration?.text || ""}
+                                </span>
+                              </div>
+                            ));
+                          } else {
+                            // Graceful fallback to simple split while loading or offline
+                            return ayat.teksArab.split(" ").map((word, wordIndex) => (
+                              <div 
+                                key={wordIndex} 
+                                className="flex flex-col items-center p-1 md:p-1.5 rounded-xl hover:bg-secondary/50 transition-all group cursor-pointer"
+                              >
+                                <span 
+                                  className="font-arabic text-foreground select-none group-hover:text-primary transition-colors"
+                                  style={{ fontSize: `${fontSize}px` }}
+                                >
+                                  {word}
+                                </span>
+                                <span className="w-1.5 h-1 bg-primary/20 rounded-full scale-0 group-hover:scale-100 transition-transform mt-1" />
+                              </div>
+                            ));
+                          }
+                        })()}
                       </div>
                     ) : (
                       <p
