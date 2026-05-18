@@ -134,7 +134,7 @@ export default function MushafPage() {
   return (
     <main className="min-h-screen bg-background pb-20 transition-colors duration-300">
       {/* Header */}
-      <div className="primary-gradient pt-20 pb-32 px-6 relative">
+      <div className="primary-gradient pt-28 md:pt-32 pb-32 px-6 relative">
         <div className="container mx-auto">
           <Link href="/" className="inline-flex items-center gap-2 text-white/70 font-bold mb-8 hover:text-white transition-all">
             <ArrowLeft size={20} /> Kembali

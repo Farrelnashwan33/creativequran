@@ -97,7 +97,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-secondary py-8 px-6 flex flex-col gap-5 md:hidden shadow-2xl z-50 overflow-hidden"
+            className="absolute top-full left-0 right-0 bg-card/95 backdrop-blur-xl border-t border-border py-8 px-6 flex flex-col gap-5 md:hidden shadow-2xl z-50 overflow-hidden"
           >
             {navLinks.map((link, index) => (
               <motion.div
@@ -108,7 +108,7 @@ const Navbar = () => {
               >
                 <Link
                   href={link.href}
-                  className="text-xl font-semibold text-foreground/80 hover:text-primary transition-colors flex items-center justify-between group"
+                  className="text-xl font-bold text-foreground hover:text-primary transition-colors flex items-center justify-between group"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -120,7 +120,7 @@ const Navbar = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="pt-4 border-t border-secondary flex flex-col gap-3"
+              className="pt-4 border-t border-border flex flex-col gap-3"
             >
               <Link
                 href="/mushaf"

@@ -90,7 +90,7 @@ export default async function TafsirDetailPage({
     <main className="min-h-screen bg-background pb-24 transition-colors duration-300">
       {/* Header */}
       <div
-        className={`${bookMeta.bg} pt-20 pb-28 px-6 relative overflow-hidden`}
+        className={`${bookMeta.bg} pt-28 md:pt-32 pb-28 px-6 relative overflow-hidden`}
         style={isOrange ? { background: "#F76B1C" } : undefined}
       >
         <div

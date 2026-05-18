@@ -28,7 +28,7 @@ const tafsirBooks = [
 export default function TafsirIndexPage() {
   return (
     <main className="min-h-screen bg-background pb-20 transition-colors duration-300">
-      <div className="bg-foreground pt-20 pb-32 px-6 transition-colors duration-300">
+      <div className="bg-foreground pt-28 md:pt-32 pb-32 px-6 transition-colors duration-300">
         <div className="container mx-auto">
           <Link href="/" className="inline-flex items-center gap-2 text-white/50 font-bold mb-8 hover:text-white transition-all">
             <ArrowLeft size={20} /> Kembali

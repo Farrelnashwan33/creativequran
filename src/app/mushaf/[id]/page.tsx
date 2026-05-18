@@ -239,14 +239,14 @@ function SurahDetailPageContent() {
             <button
               onClick={() => setFontSize((prev) => (prev >= 48 ? 24 : prev + 8))}
               title="Ubah ukuran font"
-              className="p-2 rounded-xl hover:bg-secondary transition-all text-foreground/60 hover:text-primary"
+              className="hidden md:inline-flex p-2 rounded-xl hover:bg-secondary transition-all text-foreground/60 hover:text-primary"
             >
               <ZoomIn size={20} />
             </button>
             <button
               onClick={() => setFontSize((prev) => Math.max(20, prev - 8))}
               title="Perkecil font"
-              className="p-2 rounded-xl hover:bg-secondary transition-all text-foreground/60 hover:text-primary"
+              className="hidden md:inline-flex p-2 rounded-xl hover:bg-secondary transition-all text-foreground/60 hover:text-primary"
             >
               <ZoomOut size={20} />
             </button>
@@ -288,7 +288,7 @@ function SurahDetailPageContent() {
       </nav>
 
       {/* Hero Header */}
-      <div className="primary-gradient pt-28 md:pt-32 pb-20 px-6 text-center text-white relative overflow-hidden">
+      <div className="primary-gradient pt-32 md:pt-36 pb-20 px-6 text-center text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 20% 80%, white 0%, transparent 60%), radial-gradient(circle at 80% 20%, white 0%, transparent 60%)" }} />
         <div className="container mx-auto relative z-10">
           <motion.div

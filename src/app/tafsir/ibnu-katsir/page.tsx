@@ -141,7 +141,7 @@ export default function IbnuKatsirPage() {
   return (
     <main className="min-h-screen bg-background pb-20 transition-colors duration-300">
       {/* Header Section */}
-      <div className="primary-gradient pt-20 pb-32 px-6 relative overflow-hidden">
+      <div className="primary-gradient pt-28 md:pt-32 pb-32 px-6 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/islamic-art.png')] pointer-events-none"></div>
         <div className="container mx-auto relative z-10">
           <Link 

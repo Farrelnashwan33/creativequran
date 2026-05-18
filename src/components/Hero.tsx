@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section id="home" className="relative pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden">
+    <section id="home" className="relative pt-28 md:pt-36 pb-16 md:pb-20 overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-full md:w-1/3 h-full bg-secondary/30 rounded-b-[60px] md:rounded-l-[100px] md:rounded-b-none -z-10" />
       
