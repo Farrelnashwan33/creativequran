@@ -119,21 +119,70 @@ function SurahDetailPageContent() {
       return;
     }
 
-    try {
-      // Safely transition sources in the same element
-      audio.pause();
-      audio.src = audioUrl;
-      audio.preload = "auto";
-      audio.load();
-      
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.error("Audio playback interrupted or failed:", error);
-        });
+    // Determine if we need to play Bismillah first (Surah is not Al-Fatihah/At-Tawbah and this is Ayat 1)
+    const isFirstAyatWithBismillah = surah && surah.nomor !== 1 && surah.nomor !== 9 && ayat.nomorAyat === 1;
+    const bismillahUrl = audioUrl.includes("audio-partial")
+      ? audioUrl.replace(/\/\d{6}\.mp3$/, "/001001.mp3")
+      : "https://cdn.equran.id/audio-partial/Yasser-Al-Dosari/001001.mp3";
+
+    const playActualVerse = () => {
+      try {
+        audio.pause();
+        audio.src = audioUrl;
+        audio.preload = "auto";
+        audio.load();
+        
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.error("Audio playback interrupted or failed:", error);
+          });
+        }
+        
+        setPlayingAudio(ayat.nomorAyat);
+
+        // Auto-play the next verse automatically on ended
+        audio.onended = () => {
+          setPlayingAudio(null);
+          if (surah && surah.ayat) {
+            const currentIndex = surah.ayat.findIndex((a) => a.nomorAyat === ayat.nomorAyat);
+            if (currentIndex !== -1 && currentIndex < surah.ayat.length - 1) {
+              const nextAyat = surah.ayat[currentIndex + 1];
+              autoplayTimeoutRef.current = setTimeout(() => {
+                handlePlayAudio(nextAyat);
+              }, 800); // 800ms natural delay between verses
+            }
+          }
+        };
+      } catch (error) {
+        console.error("Error playing actual verse:", error);
       }
-      
-      setPlayingAudio(ayat.nomorAyat);
+    };
+
+    try {
+      if (isFirstAyatWithBismillah) {
+        // Play Bismillah first, then chain to the actual verse
+        audio.pause();
+        audio.src = bismillahUrl;
+        audio.preload = "auto";
+        audio.load();
+        
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.error("Bismillah playback interrupted or failed:", error);
+          });
+        }
+        
+        setPlayingAudio(ayat.nomorAyat);
+
+        audio.onended = () => {
+          playActualVerse();
+        };
+      } else {
+        // Play the verse directly
+        playActualVerse();
+      }
 
       // Smooth scroll to the active playing verse (centered in the viewport)
       setTimeout(() => {
@@ -146,22 +195,8 @@ function SurahDetailPageContent() {
         }
       }, 100);
     } catch (error) {
-      console.error("Error updating audio src:", error);
+      console.error("Error in audio playback initialization:", error);
     }
-
-    // Auto-play the next verse automatically on ended
-    audio.onended = () => {
-      setPlayingAudio(null);
-      if (surah && surah.ayat) {
-        const currentIndex = surah.ayat.findIndex((a) => a.nomorAyat === ayat.nomorAyat);
-        if (currentIndex !== -1 && currentIndex < surah.ayat.length - 1) {
-          const nextAyat = surah.ayat[currentIndex + 1];
-          autoplayTimeoutRef.current = setTimeout(() => {
-            handlePlayAudio(nextAyat);
-          }, 800); // 800ms natural delay between verses
-        }
-      }
-    };
   };
 
   const handleStopAudio = () => {
