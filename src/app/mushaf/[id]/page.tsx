@@ -16,6 +16,7 @@ import {
   ZoomOut,
   Volume2,
   VolumeX,
+  Settings,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -318,6 +319,13 @@ function SurahDetailPageContent() {
             <button className="p-2 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all">
               <Bookmark size={20} />
             </button>
+            <Link
+              href="/settings"
+              title="Pengaturan"
+              className="p-2 rounded-xl text-foreground/40 hover:bg-secondary hover:text-primary transition-all hover:rotate-45 duration-300"
+            >
+              <Settings size={20} />
+            </Link>
           </div>
         </div>
       </nav>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   Globe, 
@@ -178,6 +179,7 @@ const getOptionLabel = (key: string, opt: string, t: Record<string, string>) => 
 };
 
 export default function SettingsPage() {
+  const router = useRouter();
   // Initial State
   const [bahasa, setBahasa] = useState("Bahasa Indonesia (Indonesian)");
   const [munculkanArab, setMunculkanArab] = useState(true);
@@ -396,15 +398,21 @@ export default function SettingsPage() {
         
         {/* Header bar matching the website's primary gradient */}
         <header className="primary-gradient px-6 py-5 flex items-center gap-4 text-white shadow-md relative z-10">
-          <Link 
-            href="/" 
+          <button 
+            onClick={() => {
+              if (typeof window !== "undefined" && window.history.length > 1) {
+                router.back();
+              } else {
+                router.push("/");
+              }
+            }}
             className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 active:scale-95 transition-all text-white shrink-0"
             aria-label={t.back}
           >
             <div className={isRtl ? "rotate-180" : ""}>
               <ArrowLeft size={24} />
             </div>
-          </Link>
+          </button>
           <div>
             <h1 className="text-xl md:text-2xl font-bold tracking-wide">{t.headerTitle}</h1>
           </div>
