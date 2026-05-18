@@ -17,6 +17,7 @@ import {
   ChevronRight 
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { playCustomChime } from "@/utils/audio";
 
 const translations: Record<string, Record<string, string>> = {
   "Bahasa Indonesia (Indonesian)": {
@@ -197,6 +198,7 @@ export default function SettingsPage() {
   // Notification management states
   const [notifReminder, setNotifReminder] = useState(true);
   const [notifUpdates, setNotifUpdates] = useState(true);
+  const [notifSound, setNotifSound] = useState(true);
   const [browserPermission, setBrowserPermission] = useState<string>("default");
 
   // Load from localStorage on mount
@@ -215,6 +217,7 @@ export default function SettingsPage() {
 
       setNotifReminder(localStorage.getItem("settings_notif_reminder") !== "false");
       setNotifUpdates(localStorage.getItem("settings_notif_updates") !== "false");
+      setNotifSound(localStorage.getItem("settings_notif_sound") !== "false");
       if ("Notification" in window) {
         setBrowserPermission(Notification.permission);
       }
@@ -241,6 +244,14 @@ export default function SettingsPage() {
   };
 
   const sendNotif = (title: string, body: string, url: string = "/") => {
+    // Play custom synthesized bell chime if enabled
+    if (typeof window !== "undefined") {
+      const soundEnabled = localStorage.getItem("settings_notif_sound") !== "false";
+      if (soundEnabled) {
+        playCustomChime();
+      }
+    }
+
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.ready.then((reg) => {
         if (reg.active) {
@@ -259,6 +270,12 @@ export default function SettingsPage() {
     } else {
       new Notification(title, { body, icon: "/favicon.ico" });
     }
+  };
+
+  const toggleNotifSound = () => {
+    const newVal = !notifSound;
+    setNotifSound(newVal);
+    localStorage.setItem("settings_notif_sound", String(newVal));
   };
 
   const toggleNotifReminder = () => {
@@ -700,6 +717,27 @@ export default function SettingsPage() {
                           layout
                           className="w-4 h-4 rounded-full bg-white"
                           animate={{ x: notifUpdates ? 24 : 0 }}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        />
+                      </button>
+                    </div>
+
+                    {/* Toggle: Suara Kustom Islami */}
+                    <div className="flex items-center justify-between pt-4 border-t border-border/60">
+                      <div>
+                        <p className="font-bold text-base text-foreground leading-tight">Suara Kustom Islami</p>
+                        <p className="text-xs text-foreground/60 leading-normal mt-0.5">Putar nada bel spiritual saat notifikasi masuk</p>
+                      </div>
+                      <button
+                        onClick={toggleNotifSound}
+                        className={`w-12 h-6 rounded-full p-1 transition-colors relative cursor-pointer ${
+                          notifSound ? "bg-primary" : "bg-foreground/20"
+                        }`}
+                      >
+                        <motion.div
+                          layout
+                          className="w-4 h-4 rounded-full bg-white"
+                          animate={{ x: notifSound ? 24 : 0 }}
                           transition={{ type: "spring", stiffness: 500, damping: 30 }}
                         />
                       </button>

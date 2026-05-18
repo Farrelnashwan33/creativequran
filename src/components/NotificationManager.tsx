@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { Bell, X, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { playCustomChime } from "@/utils/audio";
+
 export default function NotificationManager() {
   const pathname = usePathname();
   const [showPrompt, setShowPrompt] = useState(false);
@@ -12,6 +14,14 @@ export default function NotificationManager() {
 
   // Helper: Trigger native notification through the active Service Worker
   const triggerNativeNotif = (title: string, body: string, url: string = "/") => {
+    // Play custom chime if enabled in settings
+    if (typeof window !== "undefined") {
+      const soundEnabled = localStorage.getItem("settings_notif_sound") !== "false";
+      if (soundEnabled) {
+        playCustomChime();
+      }
+    }
+
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       navigator.serviceWorker.ready.then((registration) => {
         if (registration.active) {
