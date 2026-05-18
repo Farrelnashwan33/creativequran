@@ -17,6 +17,7 @@ import {
   Volume2,
   VolumeX,
   Settings,
+  Type,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -300,6 +301,21 @@ function SurahDetailPageContent() {
               }`}
             >
               <span className="text-[17px] font-bold font-arabic leading-none mt-[-2px]">ع</span>
+            </button>
+            <button
+              onClick={() => {
+                const nextVal = !wordByWord;
+                setWordByWord(nextVal);
+                localStorage.setItem("settings_kataPerKata", String(nextVal));
+              }}
+              title="Tampilkan/Sembunyikan Kata per Kata"
+              className={`p-2 rounded-xl transition-all ${
+                wordByWord
+                  ? "bg-primary/10 text-primary"
+                  : "text-foreground/40 hover:bg-secondary hover:text-primary"
+              }`}
+            >
+              <Type size={20} />
             </button>
             <button
               onClick={() => {
