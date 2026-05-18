@@ -55,7 +55,28 @@ function SurahDetailPageContent() {
   const [wordByWord, setWordByWord] = useState(true);
   const [translationSource, setTranslationSource] = useState("Indonesian - Sabeq Company");
   const [wbwData, setWbwData] = useState<any[] | null>(null);
+  const [visibleCount, setVisibleCount] = useState(15);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    setVisibleCount(15);
+  }, [id]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window === "undefined" || !surah) return;
+      const threshold = 1200; // Load 1200px before bottom for a seamless non-interrupted scrolling
+      const isNearBottom = 
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - threshold;
+        
+      if (isNearBottom) {
+        setVisibleCount(prev => Math.min(prev + 15, surah.ayat.length));
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [surah]);
 
   useEffect(() => {
     const loadSettings = () => {
@@ -113,6 +134,10 @@ function SurahDetailPageContent() {
 
   // Audio player logic
   const handlePlayAudio = (ayat: Verse) => {
+    if (ayat.nomorAyat > visibleCount) {
+      setVisibleCount(ayat.nomorAyat + 5);
+    }
+
     if (autoplayTimeoutRef.current) {
       clearTimeout(autoplayTimeoutRef.current);
       autoplayTimeoutRef.current = null;
@@ -395,13 +420,9 @@ function SurahDetailPageContent() {
       {/* Verses */}
       <div className="container mx-auto px-4 md:px-6 lg:max-w-4xl mt-10 pb-24">
         <div className="flex flex-col gap-4 md:gap-6">
-          {surah.ayat.map((ayat) => (
-            <motion.div
+          {surah.ayat.slice(0, visibleCount).map((ayat) => (
+            <div
               key={ayat.nomorAyat}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.4 }}
               className="relative group"
             >
               <div 
@@ -564,9 +585,16 @@ function SurahDetailPageContent() {
                   )}
                 </AnimatePresence>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
+
+        {visibleCount < surah.ayat.length && (
+          <div className="flex justify-center items-center py-8">
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            <span className="ml-3 text-sm font-semibold text-foreground/40">Memuat ayat berikutnya...</span>
+          </div>
+        )}
 
         {/* Footer Navigation */}
         <div className="mt-12 flex items-center justify-between gap-4">
