@@ -40,7 +40,7 @@ const Footer = () => {
                 { name: "Home", href: "/" },
                 { name: "Mushaf", href: "/mushaf" },
                 { name: "Tafsir", href: "/tafsir/ibnu-katsir" },
-                { name: "Kajian & Belajar", href: "/artikel" },
+                { name: "Video Kajian", href: "/video-kajian" },
                 { name: "Tentang", href: "#about" },
               ].map((link) => (
                 <li key={link.name}>

@@ -45,11 +45,11 @@ const gridItems = [
 
 const GridFeatures = () => {
   return (
-    <section id="artikel" className="py-12 md:py-20">
+    <section id="video-kajian" className="py-12 md:py-20">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {gridItems.map((item, index) => (
-            <Link href="/artikel" key={item.title}>
+            <Link href="/video-kajian" key={item.title}>
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}

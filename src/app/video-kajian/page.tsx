@@ -34,83 +34,65 @@ interface VideoItem {
 
 const videos: VideoItem[] = [
   {
-    id: "w_tLd0yQ050",
-    title: "Kunci Ketenangan Jiwa & Menghadapi Masalah Hidup",
+    id: "gkPX_g0G9H8",
+    title: "Luasnya Kasih Sayang Allah",
     speaker: "Ustadz Adi Hidayat",
     category: "Dakwah & Kajian",
     level: "Umum",
-    duration: "38:15",
-    description: "Penjelasan mendalam tentang bagaimana Al-Quran memberikan solusi praktis dan ketenangan spiritual dalam menghadapi berbagai dinamika kehidupan.",
+    duration: "14:15",
+    description: "Penjelasan mendalam tentang bagaimana kasih sayang Allah sangat luas dan memberikan ketenangan spiritual dalam menghadapi berbagai dinamika kehidupan.",
     featured: true,
   },
   {
-    id: "sS5G34SihwA",
-    title: "Tadabbur Surah Al-Kahfi - Penenang Jiwa & Pelindung Fitnah",
+    id: "KSTT_EadWq8",
+    title: "Tadabbur Al-Qur'an - Penenang Jiwa",
     speaker: "Ustadz Hanan Attaki",
     category: "Dakwah & Kajian",
     level: "Umum",
     duration: "24:40",
-    description: "Menggali hikmah di balik Surah Al-Kahfi, tips istiqamah, serta bagaimana menghidupkan tadabbur Al-Quran dalam keseharian kita.",
+    description: "Menggali hikmah di balik ayat-ayat suci, tips istiqamah, serta bagaimana menghidupkan tadabbur Al-Quran dalam keseharian kita.",
   },
   {
-    id: "d2l_01aJ6D8",
-    title: "Belajar Makharijul Huruf Lengkap & Detail untuk Pemula",
-    speaker: "Ustadz M. Laili Al-Fadhli",
+    id: "fVpf6_UeP-o",
+    title: "Belajar Makharijul Huruf (Al-Jauf & Al-Halaq)",
+    speaker: "Ustadz Hardi Damri, Lc",
     category: "Belajar Makhraj",
     level: "Pemula",
     duration: "15:45",
-    description: "Panduan dasar pengucapan makhraj huruf hijaiyah dari rongga mulut, tenggorokan, lidah, hingga dua bibir secara praktis.",
+    description: "Panduan dasar pengucapan makhraj huruf hijaiyah dari rongga mulut dan tenggorokan secara praktis dan detail.",
   },
   {
-    id: "Z-i7T8pSuxQ",
-    title: "Praktik Makhraj Huruf Tebal & Tipis yang Sering Keliru",
-    speaker: "Ustadz Bobby Herwibowo",
+    id: "RgHTcKvpMyk",
+    title: "Praktik Makhraj Huruf Bab Al Lisan (Lidah)",
+    speaker: "Ustadz Hardi Damri, Lc",
     category: "Belajar Makhraj",
     level: "Pemula",
     duration: "12:10",
-    description: "Latihan praktis membedakan pelafalan huruf-huruf tebal (isti'la) dan tipis (istifal) agar terhindar dari kesalahan fatal saat membaca Al-Quran.",
+    description: "Latihan praktis melafalkan huruf-huruf dari makhraj lisan agar terhindar dari kesalahan fatal saat membaca Al-Quran.",
   },
   {
-    id: "8o-9rJ0j9F4",
+    id: "BqNn6_VMFZE",
     title: "Cara Cepat Belajar Membaca Al-Quran dari Nol",
-    speaker: "Ustadz Yusuf Mansur / Metode Iqra",
+    speaker: "IRSSAT Official",
     category: "Tahsin & Tajwid",
     level: "Pemula",
     duration: "28:30",
-    description: "Metode ringkas dan efektif belajar membaca Al-Quran bagi pemula dewasa yang ingin memulai dari nol dengan percaya diri.",
+    description: "Metode ringkas dan efektif belajar membaca Al-Quran bagi pemula yang ingin memulai dari nol dengan percaya diri.",
   },
   {
-    id: "wKj4dJ_8p20",
-    title: "Tips Belajar Membaca Al-Quran dengan Tartil & Indah",
+    id: "k0EBQioLCR0",
+    title: "Murattal Surah Pilihan Penenang Hati",
     speaker: "Muzammil Hasballah",
     category: "Hafalan & Murattal",
     level: "Menengah",
-    duration: "21:15",
-    description: "Sharing teknik pernapasan, pembacaan tartil sesuai kaidah tajwid, dan pengenalan irama dasar maqamat Al-Quran agar lebih merdu.",
-  },
-  {
-    id: "S7D1yUfA3Wk",
-    title: "Kaidah Tajwid Paling Sering Muncul di Al-Quran",
-    speaker: "Ustadz Abu Rabbani",
-    category: "Tahsin & Tajwid",
-    level: "Menengah",
-    duration: "19:50",
-    description: "Penjelasan mendalam hukum Nun Sukun/Tanwin, Mim Sukun, serta hukum Mad yang paling sering ditemui dalam mushaf Al-Quran.",
-  },
-  {
-    id: "zWJb0F-fF2U",
-    title: "Cara Menemukan Kedamaian Melalui Al-Quran",
-    speaker: "Habib Ja'far Al Hadar",
-    category: "Dakwah & Kajian",
-    level: "Umum",
-    duration: "18:22",
-    description: "Diskusi santai dan mendalam tentang bagaimana Al-Quran menjadi panduan hidup yang logis, penuh cinta, dan relevan bagi generasi muda saat ini.",
+    duration: "55:15",
+    description: "Lantunan ayat suci Al-Quran surah pilihan dengan irama yang merdu untuk menemani aktivitas harian Anda.",
   }
 ];
 
 const categories = ["Semua", "Belajar Makhraj", "Tahsin & Tajwid", "Dakwah & Kajian", "Hafalan & Murattal"];
 
-export default function ArtikelPage() {
+export default function VideoKajianPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
@@ -166,7 +148,7 @@ export default function ArtikelPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 text-foreground tracking-tight">
-                Kajian & <span className="text-primary">Belajar Al-Quran</span>
+                Video <span className="text-primary">Kajian</span>
               </h1>
               <p className="text-foreground/70 text-lg max-w-2xl leading-relaxed">
                 Perdalam keimanan, sempurnakan makhraj, dan pelajari tajwid Al-Quran secara interaktif dengan video praktis yang langsung bersumber dari YouTube.
