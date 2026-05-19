@@ -2,44 +2,44 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Moon, Sun, Shield, Heart, Stars } from "lucide-react";
+import { Volume2, BookOpen, Video, Sparkles, Heart } from "lucide-react";
 import Link from "next/link";
 
 const gridItems = [
   {
-    title: "Salah",
-    icon: Sun,
+    title: "Belajar Makhraj",
+    icon: Volume2,
     iconColor: "text-orange-500",
     bgColor: "bg-orange-50",
-    description: "Panduan shalat fardhu & shalat sunnah",
+    description: "Latihan praktis melafalkan huruf hijaiyah secara tepat & fasih",
   },
   {
-    title: "After Salah",
-    icon: Moon,
+    title: "Tahsin & Tajwid",
+    icon: BookOpen,
     iconColor: "text-blue-500",
     bgColor: "bg-blue-50",
-    description: "Dzikir & doa setelah shalat",
+    description: "Kupas tuntas hukum tajwid dan perbaikan bacaan Al-Quran",
   },
   {
-    title: "Ruqyah & Illness",
-    icon: Shield,
+    title: "Dakwah & Kajian",
+    icon: Video,
     iconColor: "text-green-500",
     bgColor: "bg-green-50",
-    description: "Ayat penyembuh & perlindungan",
+    description: "Koleksi ceramah penyejuk jiwa dari ustadz & habib pilihan",
   },
   {
-    title: "Praises of Allah",
-    icon: Stars,
+    title: "Tadabbur Al-Quran",
+    icon: Sparkles,
     iconColor: "text-yellow-500",
     bgColor: "bg-yellow-50",
-    description: "Asmaul Husna & puji-pujian",
+    description: "Menyelami kedalaman pesan ilahi untuk kehidupan sehari-hari",
   },
   {
-    title: "Salawat",
+    title: "Hafalan & Murattal",
     icon: Heart,
     iconColor: "text-red-500",
     bgColor: "bg-red-50",
-    description: "Shalawat kepada Nabi SAW",
+    description: "Metode menghafal efektif serta lantunan merdu para qari",
   },
 ];
 
