@@ -211,7 +211,7 @@ export default function VideoKajianPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-card rounded-[32px] overflow-hidden border border-border soft-shadow grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 md:p-8 mb-12 hover:border-primary/30 transition-all duration-300 relative group"
+            className="bg-card rounded-[24px] md:rounded-[32px] overflow-hidden border border-border soft-shadow grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 p-5 md:p-8 mb-12 hover:border-primary/30 transition-all duration-300 relative group"
           >
             <div 
               className="lg:col-span-7 relative aspect-video rounded-2xl overflow-hidden shadow-lg cursor-pointer group/img"
@@ -329,7 +329,7 @@ export default function VideoKajianPage() {
         {filteredVideos.length > 0 ? (
           <motion.div 
             layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
             <AnimatePresence>
               {filteredVideos.map((video) => (
@@ -340,7 +340,7 @@ export default function VideoKajianPage() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
                   key={video.id} 
-                  className="bg-card rounded-[32px] overflow-hidden border border-border hover:border-primary/30 soft-shadow group flex flex-col justify-between card-hover transition-all duration-300 relative h-full"
+                  className="bg-card rounded-[24px] md:rounded-[32px] overflow-hidden border border-border hover:border-primary/30 soft-shadow group flex flex-col justify-between card-hover transition-all duration-300 relative h-full"
                 >
                   {/* Thumbnail area */}
                   <div 
@@ -374,7 +374,7 @@ export default function VideoKajianPage() {
                   </div>
 
                   {/* Text Contents */}
-                  <div className="p-6 flex-grow flex flex-col justify-between gap-4">
+                  <div className="p-5 md:p-6 flex-grow flex flex-col justify-between gap-4">
                     <div className="flex flex-col gap-2">
                       <span className="text-[10px] font-extrabold uppercase tracking-widest text-primary">
                         {video.category}
@@ -443,21 +443,21 @@ export default function VideoKajianPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md"
           >
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="bg-card w-full max-w-4xl rounded-[32px] overflow-hidden border border-border soft-shadow flex flex-col relative"
+              className="bg-card w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] rounded-[24px] md:rounded-[32px] overflow-hidden border border-border soft-shadow flex flex-col relative"
             >
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedVideo(null)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all cursor-pointer border border-white/10"
+                className="absolute top-3 right-3 md:top-4 md:right-4 z-10 w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-all cursor-pointer border border-white/10"
               >
-                <X size={20} />
+                <X size={18} className="md:w-5 md:h-5" />
               </button>
 
               {/* Video Player Box */}
@@ -472,8 +472,8 @@ export default function VideoKajianPage() {
               </div>
 
               {/* Video Info Area */}
-              <div className="p-6 md:p-8 flex flex-col gap-4 max-h-[40vh] overflow-y-auto no-scrollbar">
-                <div className="flex flex-wrap items-center gap-2.5">
+              <div className="p-5 md:p-8 flex flex-col gap-3 md:gap-4 flex-1 overflow-y-auto no-scrollbar">
+                <div className="flex flex-wrap items-center gap-2 md:gap-2.5">
                   <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
                     {selectedVideo.category}
                   </span>
@@ -485,7 +485,7 @@ export default function VideoKajianPage() {
                   </span>
                 </div>
 
-                <h2 className="text-xl md:text-2xl font-black text-foreground leading-snug">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-black text-foreground leading-snug">
                   {selectedVideo.title}
                 </h2>
 
